@@ -1,24 +1,40 @@
 import datetime
 from dateutil.relativedelta import relativedelta
 
-start_date = datetime.datetime(2010, 12, 1)
-end_date = datetime.datetime(2012, 12, 1)
-step_date = start_date + relativedelta(months=-1)
 
-result = []
-a=2
-while step_date < end_date:
-    result.append(step_date.strftime('%Y%m'))
-    step_date = step_date + relativedelta(months=+1)
+class DateGen:
+    def __init__(self):
+        self.result = None
+        self.step_date = None
+        self.end_date = None
+        self.start_date = None
 
-print(result)
-print(set().union(*result))
+    def generate_date(self, initial_year, ending_year, initial_month, ending_month):
+        self.start_date = datetime.datetime(initial_year, initial_month, 1)
+        self.end_date = datetime.datetime(ending_year, ending_month, 1)
+        self.step_date = self.start_date + relativedelta(months=-1)
+
+        result = []
+
+        while self.step_date < self.end_date:
+            result.append(self.step_date.strftime('%Y%m'))
+            self.step_date = self.step_date + relativedelta(months=+1)
+
+        set().union(*result)
+
+        def concatenate_list_data(list_data):
+            concat = ''
+            for element in list_data:
+                concat += str(element) + '|'
+            return concat
+
+        self.result = concatenate_list_data(result)
+
+    def __str__(self):
+        return str(self.result)
 
 
-def concatenate_list_data(list_data):
-    concat = ''
-    for element in list_data:
-        concat += str(element) +'|'
-    return concat
-
-print(concatenate_list_data(result))
+if __name__ == "__main__":
+    object_date = DateGen()
+    object_date.generate_date(2019, 2020, 10, 10)
+    print(object_date)
