@@ -6,7 +6,7 @@ end_date = datetime.datetime(2012, 12, 1)
 step_date = start_date + relativedelta(months=-1)
 
 result = []
-
+a=1
 while step_date < end_date:
     result.append(step_date.strftime('%Y%m'))
     step_date = step_date + relativedelta(months=+1)
